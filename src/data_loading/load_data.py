@@ -17,7 +17,7 @@ def fetch_data() -> pd.DataFrame:
     dataset = load_breast_cancer()
     
     # Features columns
-    data = pd.DataFrame(data=dataset.data, columns=dataset.feature_names)
+    data = pd.DataFrame(data=dataset.data, columns=dataset.feature_names) # type: ignore
     
     # Introduce random NaN values
     np.random.seed(42)
@@ -26,7 +26,7 @@ def fetch_data() -> pd.DataFrame:
         data.loc[mask, col] = np.nan
     
     # Target column
-    data["target"] = dataset.target
+    data["target"] = dataset.target # type: ignore
     
     return data
 

@@ -8,10 +8,10 @@ import pandas as pd
 import tensorflow as tf
 import yaml
 from sklearn.preprocessing import OneHotEncoder
-from tensorflow.keras.callbacks import EarlyStopping
-from tensorflow.keras.layers import Dense, Dropout
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping # type: ignore
+from tensorflow.keras.layers import Dense, Dropout # type: ignore
+from tensorflow.keras.models import Sequential # type: ignore
+from tensorflow.keras.optimizers import Adam # type: ignore
 
 logger = logging.getLogger("src.model_training.train_model")
 
@@ -58,14 +58,14 @@ def prepare_data(train_data: pd.DataFrame) -> tuple[pd.DataFrame, np.ndarray, On
 
     # One-hot encode the target variable
     encoder = OneHotEncoder(sparse_output=False)
-    y_train_encoded = encoder.fit_transform(y_train.values.reshape(-1, 1))
+    y_train_encoded = encoder.fit_transform(y_train.values.reshape(-1, 1)) # type: ignore
 
     return X_train, y_train_encoded, encoder
 
 
 def create_model(
     input_shape: int, num_classes: int, params: dict[str, int | float]
-) -> tf.keras.Model:
+) -> tf.keras.Model: # type: ignore
     """Create a Keras Dense Neural Network model.
 
     Args:
@@ -102,7 +102,7 @@ def create_model(
     return model
 
 
-def save_training_artifacts(model: tf.keras.Model, encoder: OneHotEncoder) -> None:
+def save_training_artifacts(model: tf.keras.Model, encoder: OneHotEncoder) -> None: # type: ignore
     """Save model artifacts to disk.
 
     Args:
@@ -130,7 +130,7 @@ def train_model(train_data: pd.DataFrame, params: dict[str, int | float]) -> Non
         train_data (pd.DataFrame): Training dataset.
         params (dict[str, int | float]): Model hyperparameters.
     """
-    tf.keras.utils.set_random_seed(params.pop("random_seed"))
+    tf.keras.utils.set_random_seed(params.pop("random_seed")) # type: ignore
     
     # Prepare the data
     X_train, y_train, encoder = prepare_data(train_data)

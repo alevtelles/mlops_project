@@ -6,7 +6,7 @@ import joblib
 import pandas as pd
 from flask import Flask, render_template, request
 from sklearn.datasets import load_breast_cancer
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model # type: ignore
 
 logger = logging.getLogger("app.main")
 
@@ -61,7 +61,7 @@ class ModelService:
         # Decode predictions
         y_decoded = self.target_encoder.inverse_transform(y_pred)
 
-        return pd.DataFrame({"Prediction": y_decoded.ravel()}, index=features.index)
+        return pd.DataFrame({"Prediction": y_decoded.ravel()}, index=features.index) # type: ignore
 
 
 def create_routes(app: Flask) -> None:
@@ -76,7 +76,7 @@ def create_routes(app: Flask) -> None:
     def upload() -> str:
         """Handle CSV file upload, validate features, and return predictions."""
         file = request.files["file"]
-        if not file.filename.endswith(".csv"):
+        if not file.filename.endswith(".csv"): # type: ignore
             return render_template("index.html", error="Please upload a CSV file")
 
         try:
@@ -85,7 +85,7 @@ def create_routes(app: Flask) -> None:
             features = pd.read_csv(io.StringIO(content))
 
             # Validate column names against breast cancer dataset
-            expected_features = load_breast_cancer().feature_names
+            expected_features = load_breast_cancer().feature_names # type: ignore
             missing_cols = [
                 col for col in expected_features if col not in features.columns
             ]
@@ -97,7 +97,7 @@ def create_routes(app: Flask) -> None:
             features = features[expected_features]
 
             # Make predictions
-            predictions = app.model_service.predict(features)
+            predictions = app.model_service.predict(features) # type: ignore
 
             # Format predictions for display
             result = predictions.to_string()
@@ -116,7 +116,7 @@ def create_routes(app: Flask) -> None:
 
 # Create and configure Flask app at module level
 app = Flask(__name__)
-app.model_service = ModelService()
+app.model_service = ModelService() # type: ignore
 create_routes(app)
 logger.info("Application initialized with model service and routes")
 

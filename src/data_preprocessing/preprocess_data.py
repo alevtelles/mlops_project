@@ -46,7 +46,7 @@ def split_data(data: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     params = load_params()
     logger.info("Splitting data into train and test sets...")
     train_data, test_data = train_test_split(
-        data, test_size=params["test_size"], random_state=params["random_seed"]
+        data, test_size=params["test_size"], random_state=params["random_seed"] # type: ignore
     )
     return train_data, test_data
 
@@ -80,7 +80,7 @@ def preprocess_data(
         imputer.fit_transform(train_features), columns=train_features.columns
     )
     test_features_processed = pd.DataFrame(
-        imputer.transform(test_features), columns=test_features.columns
+        imputer.transform(test_features), columns=test_features.columns # type: ignore
     )
     
     # Merge target back with processed features
