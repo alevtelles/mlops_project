@@ -1,2 +1,5 @@
 [core]
     autostage = true
+    remote = origin
+['remote "origin"']
+    url = https://dagshub.com/alevtelles/mlops_project.dvc
