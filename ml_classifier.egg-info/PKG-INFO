@@ -1,7 +1,8 @@
 Metadata-Version: 2.4
 Name: ml_classifier
-Version: 0.1
+Version: 0.2
 Requires-Python: >=3.12
+Requires-Dist: dvc==3.59.1
 Requires-Dist: flask==2.2.5
 Requires-Dist: gunicorn==23.0.0
 Requires-Dist: numpy==2.1.3
